@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="jquery-3.7.0.js"></script>
+
+    <style>
+        body{
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        form{
+            background-color: white;
+            padding: 50px;
+            height: 400px;
+            max-width: 750px;
+            border-radius: 25px;
+        }
+        input{
+            width: 190px;
+            border-radius: 10px;
+            padding-left: 10px;
+            margin-top: 10px;
+        }
+        textarea{
+            width: 190px;
+            border-radius: 10px;
+            padding-left: 10px;
+            margin-top: 10px;
+        }
+        span{
+            color: red;
+        }
+        #sub{
+            margin-top: 15px;
+            border-radius: 15px;
+            background-color: white;
+            border: 1px solid black;
+        }
+    </style>
+
+
+</head>
+<body>
+    
+    <form action="">
+
+        <table>
+            <tr>
+                <td>Nom :</td>
+                <td><input type="text"  id="nom"><span id="nomerr"></span></td>
+            </tr>
+            <tr>
+                <td>E-mail :</td>
+                <td><input type="text" id="mail"><span id="mailerr"></span></td>
+            </tr>
+            <tr>
+                <td>Message:</td>
+                <td><textarea name="" id="mess" cols="20" rows="5"></textarea><span id="messerr"></span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button type="submit" id="sub">ENVOYER</button></td>
+                <td></td>
+            </tr>
+        </table>
+
+    </form>
+
+
+    <script>
+
+
+        $("form").submit((event)=>{
+
+            var b = true ;
+
+            // NOM : 
+            
+            if ($("#nom").val().trim() == ""){
+                $("#nomerr").html("CHAMP DE NOM OBLIGATOIR");
+                b = false ;
+            }else{
+                $("#nomerr").html("");
+            }
+            
+            
+            // EMAIL : 
+             
+
+            if ($("#mail").val().trim() === ""){
+                $("#mailerr").html("CHAMP D'EMAIL OBLIGATOIR");
+                b = false ;
+            }
+            else{
+                var regexe = /^[a-zA-Z0-9]+[@][a-zA-Z]+[.][a-zA-Z]{3}$/ ;
+
+                if(!regexe.test($("#mail").val())){
+                    $("#mailerr").html("E-MAIL INVALID");
+                    b = false ;
+                }else
+                {
+                    $("#mailerr").html("");
+                }
+            }
+
+
+            // message :
+
+            if ($("#mess").val().trim() === ""){
+                $("#messerr").html("CHAMP DE MESSAGE OBLIGATOIR");
+                b = false ;
+                
+            }
+            else{
+
+                if ($("#mess").val().trim().length < 10 )
+                {
+                $("#messerr").html("CHAMP DE MESSAGE DOIT AVOIR AU MOIN 10 CARACTERES"); 
+                b = false ;
+                }
+                else{
+                    $("#messerr").html("");
+                }
+            }    
+            
+
+
+
+            if (b == false){
+                event.preventDefault();
+            }
+
+
+        
+
+            
+
+        });
+
+
+    </script>
+
+
+
+</body>
+</html>

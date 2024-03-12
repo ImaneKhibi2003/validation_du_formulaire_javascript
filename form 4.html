@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <fieldset>
+        <legend>Vos Coordonees</legend>
+        <form action="page.php" method="post" id="form">
+            <p id="error">*Ces zones sont obligatoires pour envoyer le formulaire</p>
+            <div class="form_div">
+                <label for="societe">Societe:</label>
+                <input type="text" id="societe">
+                <span>*</span>
+            </div>
+            <div class="form_div">
+                <label for="Pers">Personne a contacter:</label>
+                <input type="text" id="Pers">
+                <span>*</span>
+            </div>
+            <div class="form_div">
+                <label for="adrs">Adresse de l'entreprise:</label>
+                <textarea name="" id="adrs" cols="30" rows="5"></textarea>
+                <span>*</span>
+
+            </div>
+            <div class="form_div">
+                <label for="code">Code Postal:</label>
+                <input type="text" name="" id="code">
+                <span>*</span>
+
+            </div>
+            <div class="form_div">
+                <label for="ville">Ville:</label>
+                <input type="text" id="ville">
+                <span>*</span>
+
+            </div>
+            <div class="form_div">
+                <label for="email">E-mail:</label>
+                <input type="text" id="email">
+                <span>*</span>
+
+            </div>
+            <div class="form_div">
+                <label for="tele">Telephone:</label>
+                <input type="text" id="tele">
+                <span>*</span>
+
+            </div>
+            <div class="form_div">
+                <div id="select_div">
+                    <label for="drop">Selectionnez l'environnement technique du projet:</label>
+                    <select name="" id="drop">
+                        <option value="Choisissez">Choisissez</option>
+                        <option value="choix1">choix1</option>
+                        <option value="choix2">choix2</option>
+                        <option value="choix3">choix3</option>
+                    </select>
+                </div>
+                <textarea name="" id="drop_txt_area" cols="30" rows="5"></textarea>
+                <span>*</span>
+            </div>
+            <input type="submit" name="" id="btn">
+            <button id="clear">Effacer</button>
+
+        </form>
+    </fieldset>
+
+    <script>
+        var societe = document.getElementById("societe");
+        var Pers = document.getElementById("Pers");
+        var adrs = document.getElementById("adrs");
+        var code = document.getElementById("code");
+        var ville = document.getElementById("ville");
+        var email = document.getElementById("email");
+        var tele = document.getElementById("tele");
+
+        var drop_txt_area = document.getElementById("drop_txt_area");
+        var drop = document.getElementById("drop");
+
+
+        var clear_btn = document.getElementById("clear");
+        
+
+
+
+        var span = document.getElementsByTagName("span");
+        var form = document.getElementById("form");
+        var error = document.getElementById("error");
+
+
+        form.addEventListener("submit",send);
+
+
+       
+        //Visibility des etoiles et le message d'erreur
+
+        //visible function
+        function check_id($p)
+        {
+            event.preventDefault();
+            error.style.visibility = "visible";
+            for(let x of span)
+                {
+                    if(x.previousElementSibling.id == $p)
+                    {
+                        x.style.visibility ="visible";
+                        break;
+                    }
+                }
+        }
+
+        //hidden function
+        function clear($p)
+        {
+            $p.nextElementSibling.style.visibility = "hidden";
+        }
+
+
+
+        //Submit function
+        function send(event)
+        {   
+
+            
+           
+            if(societe.value.length < 1)
+            {
+                check_id("societe");   
+            }
+            else
+            {
+                clear(societe);
+            }
+
+            if(Pers.value.length <= 3)
+            {
+                check_id("Pers");
+            }
+            else
+            {
+                clear(Pers);
+            }
+
+            if(code.value.length != 5 || isNaN(code.value) )
+            {
+                check_id("code");
+            }
+            else
+            {
+                clear(code);
+            }
+
+
+            if(ville.value.length < 1)
+            {
+                check_id("ville");   
+            }
+            else
+            {
+                clear(ville);
+            }
+
+
+            var regex = /^[A-Za-z-\.0-9]+[@][A-Za-z\.]+[.][a-z]/;
+
+            if(!regex.test(email.value))
+            {
+                check_id("email");
+            }
+            else
+            {
+                clear(email);
+            }
+            
+            if(adrs.value.length == 0)
+            {
+                check_id("adrs");
+            }
+            else
+            {
+                clear(adrs);
+            }
+
+            var regex_tel = /^0[5-7][0-9]{8}$/;
+            if(regex_tel.test(tele.value) == false)
+            {
+                check_id("tele");
+            }
+            else
+            {
+                clear(tele);
+            }
+
+            if(drop_txt_area.value.length == 0)
+            {
+                check_id("drop_txt_area");
+            }
+            else
+            {
+                clear(drop_txt_area);
+            }
+
+ 
+        }
+
+
+        //Effacer
+        clear_btn.addEventListener("click",clearf);
+        function clearf()
+        {
+            form.reset();
+        }
+
+
+        //Remplissage d'environnement technique
+        drop.addEventListener("change",fill);
+        
+        
+        
+        
+        function fill()
+        {
+            var Txt_area_values = drop_txt_area.value.split("\n");
+           
+            
+            if(this.selectedIndex != 0 && Txt_area_values.includes(drop.value) == false)
+            {
+                if(drop_txt_area.value.length == 0 )
+                {
+                    drop_txt_area.value = this.value;
+                    
+                }
+                else
+                {
+                    drop_txt_area.value += "\n"+this.value;
+                   
+                }
+            }
+
+            Txt_area_values = drop_txt_area.value.split("\n");
+            console.log(Txt_area_values)
+        }
+
+        
+    </script>
+</body>
+
+</html>

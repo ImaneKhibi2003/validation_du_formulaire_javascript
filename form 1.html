@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body{
+            background-color: black;
+        }
+        form{
+            background-color: rgb(223, 199, 170);
+            padding: 25px;
+            margin: 25px;
+            border-radius: 25px;
+            display: flex;
+            flex-direction: column;
+        }
+        input{
+            width: 190px;
+            margin: 10px;
+            border-radius: 10px;
+
+        }
+        textarea{
+            border-radius: 25px;
+            margin-left: 80px;
+        }
+        #btn{
+            margin-top: 50px;
+        }
+        #m{
+            color: red;
+        }
+
+    </style>
+
+</head>
+<body>
+    
+    <form action="alo.php" id="form">
+
+        <div>Nom : <input type="text" id="nom"></div>
+        <div>Email : <input type="text" id="email"></div>
+        <div>Message : <br><textarea type="text"id="msg" cols = "25" rows="10"></textarea></div>
+        <input type="submit" value="Envoyer" id="btn">
+        <p id="m"></p>
+
+
+    </form>
+    
+
+
+    <script>
+
+        var nom = document.getElementById("nom");
+        var email = document.getElementById("email");
+        var msg = document.getElementById("msg");
+        var btn = document.getElementById("btn");
+        var m = document.getElementById("m") ;
+
+        
+        
+        
+        function valider(event)
+        {
+            var b = true;
+            m.innerHTML = "" ;
+
+            // NOM VIDE :
+
+            if ( nom.value == ""){
+                m.innerHTML += "Champ de nom vide ! <br>";
+                b=false;
+            }
+
+            // EMAIL VIDE :
+
+            if ( email.value == ""){
+                m.innerHTML  += "Champ d'email vide ! <br>";
+                b=false;
+            }
+
+
+            // EMAIL VALID :
+
+            var re = /^[a-zA-Z.-_]+[@][a-zA-Z]+.[a-zA-Z]{3,4}$/;
+            // var re = /^[A-Za-z0-9.-_+]+[@][A-Za-z-]+[.][a-z]+$/ ;
+
+            if( re.test(email.value) == false){
+                m.innerHTML += "Champ d'email n'est pas valid <br>";
+                b=false;
+            }
+
+            // MESSAGE VIDE :
+
+            if ( msg.value == ""){
+                m.innerHTML  += "Champ de message vide ! <br>";
+                b=false;
+            }
+            // TEST :
+            if (b == false){
+                event.preventDefault() ;
+            }
+        }
+        document.getElementById("form").addEventListener("submit",valider);
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+.form_div
+{
+    display: flex;
+    margin-bottom: 20px;
+   
+    
+}
+label
+{
+   width: 150px; 
+   margin-right: 10px;
+   
+}
+#select_div
+{
+    display: flex;
+    flex-direction: column;
+}
+select{
+    width: 100px;
+    margin-top: 10px;
+}
+
+fieldset
+{
+    width: 500px;
+}
+span
+{
+    visibility: hidden;
+    color: red;
+    
+    
+    margin-left: 5px;
+}
+
+#error
+{
+    color: red;
+    visibility: hidden;
+}

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>formulaire </h1>
+    <form action="ex.php" id="form">
+
+        <label for="name">Nom : </label>
+        <input type="text" name="name" id="name">
+        <span ></span>
+
+        <label for="residence">Residence : </label>
+        <input type="text" name="residence" id="residence">
+        <span ></span>
+
+        <label for="email">Email :</label>
+        <input type="email" name="email" id="email">
+        <span ></span>
+
+        <label for="age">Age : </label>
+        <input type="number" name="age" id="age">
+        <span ></span>
+
+        <label >sexe : </label>
+        <span ></span>
+
+        <label for="homme">Homme : </label>
+        <input type="radio" name="sexe" id="homme">
+
+        <label for="femme">femme : </label>
+        <input type="radio" name="sexe" id="femme">
+
+        <label >langue Parlee : </label>
+        <span ></span>
+
+        <label for="FR">FR : </label>
+        <input type="checkbox" name="langue" id="FR">
+
+        <label for="AR">AR : </label>
+        <input type="checkbox" name="langue" id="AR">
+
+        <label for="ENG">ENG : </label>
+        <input type="checkbox" name="langue" id="ENG">
+        
+        
+        <label for="pr" >Profession : </label>
+        <span ></span>
+        <select id="pr" name="pr">
+            <option >selectionner une option </option>
+            <option value="Directeur">Directeur</option>
+            <option value="Dentist">Dentist</option>
+            <option value="Professeur">Professeur</option>
+        </select>
+        
+        <br>
+        <div>formulaire</div>
+        <input type="submit" value="Envoyer" id="btn1">
+        <input type="reset" value="Interrompre" id="btn2">
+
+    </form>
+
+    <script>
+        var formulaire = document.getElementById('form');
+        var nom = document.getElementById('name');
+        var residence = document.getElementById('residence');
+        var email = document.getElementById('email');
+        var age = document.getElementById('age');
+        var sexe = document.getElementsByName('sexe');
+        var langues = document.getElementsByName('langue');
+        var Profession = document.getElementById("pr");
+        
+        var span =document.getElementsByTagName("span");
+        
+      
+        function valider(event) {
+
+            var valid = true ; 
+            
+            if(nom.value == ""){
+
+                span[0].innerHTML = "*"
+                valid = false ;
+                
+            }
+            else{
+                span[0].innerHTML="";
+            }
+
+
+            if(residence.value == ""){
+
+                span[1].innerHTML="*";
+                valid = false ;
+                
+            }
+            else{
+                span[1].innerHTML="";
+            }
+
+            var regex = /^[A-Za-z0-9]+[@][A-Za-z-]+[.][A-Za-z]+$/;
+
+            if(!regex.test(email.value)){
+                
+                span[2].innerHTML="*";
+                valid = false ;
+            }
+            else{
+
+                span[2].innerHTML="";
+            }
+
+            if(age.value==""){
+                
+                span[3].innerHTML="*";
+                valid = false ;
+            }
+            else{
+                span[3].innerHTML="";
+            }
+
+            var a = false;
+            for (let i = 0; i < sexe.length; i++) {
+                if(sexe[i].checked){
+                     a = true ;
+                     break
+                }
+            }
+            if(a == false){
+                span[4].innerHTML="*";
+                valid = false
+            }
+            else{
+                span[4].innerHTML="";
+            }
+
+            var b = false;
+            for (let i = 0; i < langues.length; i++) {
+                if(langues[i].checked){
+                    b = true;
+                    break;
+                }
+            }
+            if(b == false){
+
+                valid = false ;
+                span[5].innerHTML="*";
+            }
+            else{
+                span[5].innerHTML="";
+            }
+
+            if(Profession.selectedIndex == 0){
+                
+                valid = false ;
+                span[6].innerHTML="*";
+            }
+            else{
+                span[6].innerHTML="";
+            }
+
+
+            if(valid === false){
+                event.preventDefault();
+                
+            }   
+        }
+
+        formulaire.addEventListener('submit',valider);
+    </script>
+</body>
+</html>

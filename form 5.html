@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>ex4</title>
+</head>
+<body>
+    
+    <h1>Vos coordonnées: </h1>
+    <p id="msg"></p>
+    <form action="email.php" method="post" id="form4">
+        <table>
+            <tr>
+     <td><label for="societe">Société: </label></td>
+    <td> <input type="text" id="societe">
+     <span id="star1">*</span></td>
+    </tr>
+    <tr>
+
+     <td><label for="personne">Personne à contacter</label></td>
+     <td><input type="text" id="personne">
+    <span id="star2">*</span></td>
+
+    </tr>
+
+    <tr>
+     <td><label for="adresse">Adresse de l'entreprise</label></td>
+     <td><textarea  id="adresse" cols="30" rows="10"></textarea>
+     <span id="star3">*</span></td>
+
+    </tr>
+  <tr>
+    <td> <label for="code">Code Postal: </label></td>
+    <td> <input type="text" id="code">
+     <span id="star4">*</span></td>
+
+    </tr>
+<tr>
+    <td> <label for="ville">Ville: </label></td>
+     <td><input type="text" id="ville">
+     <span id="star5">*</span></td>
+    </tr>
+
+    <tr>
+    <td> <label for="email">E-mail</label></td>
+     <td><input type="text" id="email">
+     <span id="msg1"></span></td>
+    </tr>
+    <tr>
+    <td> <label for="tel">Téléphone</label></td>
+     <td><input type="text" id="tel"></td>
+    </tr>
+    <tr>
+    <td> <label for="envi">Sélectionnez l'environnement technique du projet</label></td>
+    <td> <select  id="envi">
+        <option value="msg">Choississez</option>
+        <option value="environnement1">environnement1</option>
+        <option value="environnement2">environnement2</option>
+        <option value="environnement3">environnement3</option>
+     </select></td>
+    <td> <textarea  id="envi2" cols="30" rows="10"></textarea>
+     <span id="msg2"></span></td>
+
+    </tr>
+    <tr>
+     <td><input type="submit" value="Envoyer" id="b1">
+     <button value="effacer" id="b2">Effacer</button></td>
+    </tr>
+    </table>
+    </form>
+
+    <script>
+        var societe=document.getElementById("societe");
+        var personne=document.getElementById("personne");
+        var adresse=document.getElementById("adresse");
+        var code=document.getElementById("code");
+        var ville=document.getElementById("ville");
+        var email=document.getElementById("email");
+        var tel=document.getElementById("tel");
+        var envi=document.getElementById("envi");
+        var envi2=document.getElementById("envi2");
+        var para=document.getElementById("msg");
+        var star1=document.getElementById("star1");
+        var star2=document.getElementById("star2");
+        var star3=document.getElementById("star3");
+        var star4=document.getElementById("star4");
+        var star5=document.getElementById("star5");
+        var b2=document.getElementById("b2");
+        var msg_email=document.getElementById("msg1");
+        var msg_select=document.getElementById("msg2");
+        
+        
+        var valid;
+
+        
+        star1.style.color="red";
+        star2.style.color="red";
+        star3.style.color="red";
+        star4.style.color="red";
+        star5.style.color="red";
+        b2.addEventListener("click",effacer);
+
+        //fonction de boutton effacer 
+
+        function effacer(event)
+        {
+            star1.style.color="red";
+            star2.style.color="red";
+            star3.style.color="red";
+            star4.style.color="red";
+            star5.style.color="red";
+           document.getElementById("form4").reset();
+
+        }
+
+        //ajouter le addEventListener keyup pour l'affichage de l'étoile rouge ou non 
+
+        societe.addEventListener("keyup",f1);
+
+        function f1()
+        {
+            var regex_societe=/[a-zA-Z]/;
+
+            if(regex_societe.test(societe.value)==true)
+            {
+                star1.style.color="white";
+            }
+            if(societe.value=="")
+            {
+                star1.style.color="red"; 
+            }
+        }
+
+        personne.addEventListener("keyup",f2)
+
+        function f2()
+        {
+            var regex_personne=/[a-zA-Z]{3}/;
+
+            if(regex_personne.test(personne.value)==true)
+            {
+                star2.style.color="white";
+            }
+            if(personne.value.length<3)
+            {
+                star2.style.color="red"; 
+            }
+        }
+        
+
+        adresse.addEventListener("keyup",f3);
+        function f3()
+        {
+            if(adresse.value!="")
+            {
+                star3.style.color="white"; 
+            }
+            else
+            {
+                star3.style.color="red"; 
+            }
+        }
+
+        code.addEventListener("keyup",f4);
+
+        function f4()
+        {
+            var regex_code=/^[0-9]{5}$/;
+            if(regex_code.test(code.value)==true)
+            {
+                star4.style.color="white";
+            }
+            else
+            {
+                star4.style.color="red"; 
+            }
+
+        }
+
+        ville.addEventListener("keyup",f5)
+        function f5()
+        {
+            var regex_ville=/[a-zA-Z]/;
+
+            if(regex_ville.test(ville.value)==true)
+            {
+                star5.style.color="white";
+            }
+            if(ville.value=="")
+            {
+                star5.style.color="red"; 
+            }
+        }
+
+        envi.addEventListener("change",f6)
+        //fonction f6 me permet d'ajouter les choix séléctionnés de l'utilisateur
+        function f6()
+        {
+            if(envi.value=="msg")
+            {
+                msg_select.innerHTML="veuillez choisir un choix";
+               msg_select.style.color="red";
+               
+            }
+            else if(envi.value!="msg")
+            {
+                if(envi2.value.split(",").includes(envi.value))//fonction includes vérifier si une valeur existe dans un tableau
+                {
+                    msg_select.innerHTML="veuillez choisir un autre choix";
+                    msg_select.style.color="red";
+                }
+                else
+                {
+                    envi2.value+=envi.value+",";
+                     msg_select.style.color="white";
+                }  
+
+            }
+        
+        }
+        function valider()
+        {
+            var regex_email=/[@]/;
+            valid=true;
+            if(regex_email.test(email.value)==false)
+            {
+                msg_email.textContent="ex:xyz@exemple.com";
+                msg_email.style.color="red";
+                valid=false;
+
+            }
+
+           if(envi.value=="msg")
+           {
+            valid=false;
+
+           }
+
+            if(star1.style.color=="red"|| star2.style.color=="red" || star3.style.color=="red" || star4.style.color=="red" || star5.style.color=="red")
+            {
+                para.innerHTML="* ces zones sont obligatoires pour envoyer le formulaire"
+                para.style.color="red";
+                valid=false;
+            }
+
+            if(valid==false)
+            {
+                event.preventDefault()
+            }
+        }
+        document.getElementById("form4").addEventListener("submit",valider);
+
+    </script>
+</body>
+</html>
